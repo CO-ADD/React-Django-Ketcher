@@ -20,7 +20,7 @@ module.exports = {
     }),
 
     new HtmlWebpackPlugin({
-      template: "templates/home.html",
+      template: "templates/utils/ketcher.html",
     }),
   ],
   module: {

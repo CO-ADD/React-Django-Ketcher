@@ -1,0 +1,8 @@
+{% extends 'base.html'%}
+<!--prettier-ignore-->
+{% block title%} mysite{% endblock %}
+{% block content %}
+<input id="mol" value="{{molecular}}" />
+{%include 'utils/ketcher.html'%}
+<!--  -->
+{%endblock%}
