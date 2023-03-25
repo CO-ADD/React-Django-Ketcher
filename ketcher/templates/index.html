@@ -2,7 +2,8 @@
 <!--prettier-ignore-->
 {% block title%} mysite{% endblock %}
 {% block content %}
-<input id="mol" value="{{molecular}}" />
+<input id="mol" value="{{molecular}}" />{{molecular}}
+<!--  -->
 {%include 'utils/ketcher.html'%}
 <!--  -->
 {%endblock%}
