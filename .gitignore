@@ -255,3 +255,4 @@ GitHub.sublime-settings
 # db
 # Ignore the default SQLite database.
 /db/*.sqlite3
+docker_env
