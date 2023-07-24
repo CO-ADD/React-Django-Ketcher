@@ -27,8 +27,8 @@ interface State{
 
 function KetcherExample(props:Props) {
   const [ketcher, setKetcher] = useState<any>(null);
-  const [smiles, setSmiles] = useState<string>("");
-  const [molfile, setMolfile] = useState<string>("");
+  const [sm_or_mo, setSm_or_Mo] = useState<string>("");
+  // const [molfile, setMolfile] = useState<string>("");
 
   const handleOnInit = (Ketcher:any) => {
     setKetcher(Ketcher);
@@ -39,24 +39,24 @@ function KetcherExample(props:Props) {
 
   const getSmiles = () => {
     ketcher.getSmiles().then((newSmiles: string) => {
-      console.log("SMILES:", newSmiles);
-      setSmiles(newSmiles);
+      
+      localStorage.setItem('smiles_query', newSmiles);
+      setSm_or_Mo(newSmiles);
     });
   };
 
   const getMolfile = () => {
     ketcher.getMolfile().then((newMolfile: string) => {
       // console.log("SMILES:", newMol);
-      setMolfile(newMolfile);
+      setSm_or_Mo(newMolfile);
     });
   };
 
-  const updateMol = () => {
-    ketcher.getSmiles().then((newSmiles: string) => {
-      // console.log("SMILES:", newMol);
-      localStorage.setItem('smiles_query', newSmiles);
-    });
-  };
+  // const updateMol = () => {
+  //   ketcher.getSmiles().then((newSmiles: string) => {
+    
+  //   });
+  // };
 
 
 
@@ -66,6 +66,8 @@ function KetcherExample(props:Props) {
 
   return (
     <div style={editorstyle}>
+      {/* <button id="updateMol" onClick={updateMol}>Update Mol</button> */}
+      <button id="updateMol" >Update Mol</button>
 
           <Editor
             staticResourcesUrl={""}
@@ -78,11 +80,10 @@ function KetcherExample(props:Props) {
           <button onClick={getMolfile}>Get Molfile</button>
           <br />
           <textarea
-            value={molfile? molfile : smiles? smiles : ""}
+            value={sm_or_mo}
             readOnly={true}
             id="getSmilesFromKetcher"
           />
-          <button onClick={updateMol}>Update Mol</button>
     </div>
   );
 }
