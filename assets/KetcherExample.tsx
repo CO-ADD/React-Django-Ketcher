@@ -48,9 +48,7 @@ interface State {
 
 function KetcherExample(props: Props) {
   const [ketcher, setKetcher] = useState<any>(null);
-  const [sm_or_mo, setSm_or_Mo] = useState<string>("");
-  // const [molfile, setMolfile] = useState<string>("");
-  const mol = props.molecular.replace(/\\n/g, "\n");
+ 
   const handleOnInit = (Ketcher: any) => {
     setKetcher(Ketcher);
     const mole = props.molecular.replace(/\\n/g, "\n");
@@ -58,35 +56,28 @@ function KetcherExample(props: Props) {
     Ketcher.setMolecule(initialData);
   };
 
-  const getSmiles = () => {
-    ketcher.getSmiles().then((newSmiles: string) => {
-      localStorage.setItem("smiles_query", newSmiles);
-      setSm_or_Mo(newSmiles);
-    });
-  };
 
   const getMolfile = () => {
-    ketcher.getMolfile().then((newMolfile: string) => {
-      // console.log("SMILES:", newMol);
-      setSm_or_Mo(newMolfile);
+    ketcher.getMolfile('v2000').then((newMolfile: string) => {
+
+      const text_id_smol: HTMLElement | null = document.getElementById('id_smol');
+      text_id_smol.value = newMolfile;
     });
   };
 
-  // const updateMol = () => {
-  //   ketcher.getSmiles().then((newSmiles: string) => {
-
-  //   });
-  // };
 
   const errorHandler = (error: string) => {
     console.error(error);
   };
 
   return (
-    // <div style={editorstyle}>
     <div style={editorstyle}>
+      <div>
+
+        <button id='get_new_mol' onClick={getMolfile}>update Mol</button>
+      </div>
       <GridWrapper>
-        {/* <button id="updateMol" onClick={updateMol}>Update Mol</button> */}
+   
         <Editor
           staticResourcesUrl={""}
           structServiceProvider={structServiceProvider}
@@ -95,21 +86,6 @@ function KetcherExample(props: Props) {
         />
       </GridWrapper>
 
-      <div>
-
-        <button onClick={getSmiles}>Get SMILES</button>
-        <button onClick={getMolfile}>Get Molfile</button>
-        <br />
-        <button id="updateMol" disabled={true}>Update Mol</button>
-        <textarea
-          value={sm_or_mo}
-          readOnly={true}
-          id="getSmilesFromKetcher"
-          rows={5}
-          cols={10}
-        />
-      </div>
-      {/* </div> */}
     </div>
   );
 }
